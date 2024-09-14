@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({  
-    id: { type: mongoose.Schema.Types.ObjectId, required: true }, // Reference to the user  
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: `Users`,  required: true }, // Reference to the user  
     restaurantId: { type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant', required: true }, // Reference to the restaurant  
     orderedItems: [{   
         menuItemId: { type: mongoose.Schema.Types.ObjectId, ref: 'Menu', required: true }, // Reference to the menu item  

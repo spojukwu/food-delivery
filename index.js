@@ -11,7 +11,7 @@ const deliveryPersonnel = require("./MODEL/deliveryPersonnelModule");
 const Order = require("./MODEL/orderModule");
 const DeliveryPersonnel = require("./MODEL/deliveryPersonnelModule");
 const Menu = require("./MODEL/menuModel");
-const { validateRegistration, validateLogin } = require("./MODEL/middlewares/validations");
+const { validateRegistration, validateLogin } = require("./middlewares/validations");
 
 const app = express();  
 app.use(express.json()); // Middleware to parse JSON bodies  
@@ -49,6 +49,14 @@ app.post("/register", validateRegistration, async (req, res) => {
         return res.status(500).json({ message: "Server error", error: error.message });  
     }  
 });
+app.get("/users", async (req,res)=>{
+    try {
+        const allUsers = await Users.find();
+    res.send(allUsers)
+    } catch (error) {
+        return res.status(500).json({ message: "Server error", error: error.message }) 
+    }
+})
 // update users password by locating them with email
 app.put("/update-user/:email", async (req, res) => {  
     try {  
@@ -238,16 +246,24 @@ app.get('/restaurants', async (req, res) => {
  // Place Order  
 app.post('/order', async (req, res) => {  
    try {
-
-const order = new Order(req.body);  
-await order.save();  
-res.status(201).send(order); 
+        const order = new Order(req.body);  
+        await order.save();  
+        res.status(201).send(order); 
    } catch (error) {
     return res.status(500).json({ message: "Server error", error: error.message });
 }
 });  
 
 // Get Order History  
-
+app.get('/orders', async (req, res) => {  
+   
+    try {
+     const Orders = await Order.find()//({ userId: req.params.userId });  
+     res.send(Orders); 
+    } catch (error) {
+     return res.status(500).json({ message: "Server error", error: error.message });
+    }
+     
+ });  
 
 // Assign Delivery Personnel  
