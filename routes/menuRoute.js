@@ -8,7 +8,7 @@ const router = express.Router()
 
 router.post("/menu", validateToken, menufxn )
 
-router.get(`/menus`, getMenufxn )
+router.get(`/menus`,validateToken, getMenufxn )
 
 router.get("/one-menu/:id",validateToken, getOneMenufnx )
 

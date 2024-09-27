@@ -3,15 +3,23 @@ const mongoose = require("mongoose");
 const connectToDatabase = require("./db");  
 const dotenv = require("dotenv").config();  
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");  
-const validateToken = require("./middlewares/ValidateAuth");
+const jwt = require("jsonwebtoken");
+const cors = require("cors")
+const morgan = require("morgan")
+
 const usersRouter = require("./routes/userRoute")
 const menuRouter = require("./routes/menuRoute")
 const orderRouter = require("./routes/orderRoute")
-const resturantRouter = require("./routes/resturantRoute")
+const resturantRouter = require("./routes/resturantRoute");
+const deliveryRouter = require("./routes/deliveryRoute")
+const DeliveryPersonnel = require("./MODEL/deliveryPersonnelModule");
+
+
 
 const app = express();  
 app.use(express.json()); // Middleware to parse JSON bodies  
+app.use(cors())//dependecy for frontend connection
+app.use(morgan())
 
 const PORT = process.env.PORT || 5000; 
 
@@ -28,27 +36,18 @@ app.get("/", (req, res) => {
 }); 
 
 
-app.use(usersRouter) 
+app.use("/api",usersRouter) 
 
-app.use(menuRouter)
+app.use("/api",menuRouter)
 
-app.use(orderRouter)
+app.use("/api",orderRouter)
 
-app.use(resturantRouter)
+app.use("/api",resturantRouter)
 
-
-
-
+app.use("/api",deliveryRouter)
 
 
 
-
-
-// Assign Delivery Personnel  
-app.post("/delivery", validateToken, (req, res)=>{
-
-    return res.status(200).json({
-        message: "Successful", 
-        user: req.user
-    })
-})   
+app.use((req, res) => {  
+    return res.status(404).json({ message: "Sorry, this endpoint doesn't exist." });  
+});
