@@ -12,7 +12,7 @@ const menuRouter = require("./routes/menuRoute")
 const orderRouter = require("./routes/orderRoute")
 const resturantRouter = require("./routes/resturantRoute");
 const deliveryRouter = require("./routes/deliveryRoute")
-const DeliveryPersonnel = require("./MODEL/deliveryPersonnelModule");
+const assignDeliveryRouter = require("./routes/assignDeliveryRoute")
 
 
 
@@ -35,16 +35,12 @@ app.get("/", (req, res) => {
     return res.status(200).json({ message: "Welcome to our food delivery website" });  
 }); 
 
-
 app.use("/api",usersRouter) 
-
 app.use("/api",menuRouter)
-
 app.use("/api",orderRouter)
-
 app.use("/api",resturantRouter)
-
 app.use("/api",deliveryRouter)
+app.use("/api",assignDeliveryRouter)
 
 
 
