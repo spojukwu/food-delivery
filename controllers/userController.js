@@ -71,7 +71,7 @@ const getusersfxn = async (req,res)=>{
     }
 }
 // update users password by locating them with email
-const updateUserfxn = async (req, res) => {  
+const resetPwdfxn = async (req, res) => {  
     try {  
         const { email } = req.params;  
         const { password } = req.body;  
@@ -122,6 +122,6 @@ module.exports = {
     regfxn, 
     loginfxn,
     getusersfxn,
-    updateUserfxn,
+    resetPwdfxn,
     deleteUserfxn
 }

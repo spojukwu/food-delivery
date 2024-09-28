@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/restaurant', validateToken, createresturantfxn );
 
-router.get('/restaurants', getresturantfxn );
+router.get('/restaurants',validateToken, getresturantfxn );
 
 router.put("/update-restaurant/:id", validateToken,updateresturantfxn)
 
