@@ -12,7 +12,8 @@ const menuRouter = require("./routes/menuRoute")
 const orderRouter = require("./routes/orderRoute")
 const resturantRouter = require("./routes/resturantRoute");
 const deliveryRouter = require("./routes/deliveryRoute")
-const assignDeliveryRouter = require("./routes/assignDeliveryRoute")
+const assignDeliveryRouter = require("./routes/assignDeliveryRoute");
+const validateRoute = require("./routes/tokenValidateRoute")
 
 
 
@@ -34,6 +35,10 @@ app.listen(PORT, () => {
 app.get("/", (req, res) => {  
     return res.status(200).json({ message: "Welcome to our food delivery website" });  
 }); 
+
+// Protected Routes
+app.use("/api",validateRoute)
+
 
 app.use("/api",usersRouter) 
 app.use("/api",menuRouter)
