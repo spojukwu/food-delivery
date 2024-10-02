@@ -33,8 +33,8 @@ const getOneMenufnx = async (req, res)=>{
 //updateMenu
 const updateMenufnx = async (req, res) => {  
     try {  
-        const { id } = req.params;  
-        const { itemName, price } = req.body;  
+        const { id } = req.params;  // Get ID from route parameters  
+        const { itemName, price } = req.body;  // Get itemName and price from the request body  
 
         // Initialize an array to hold validation errors  
         const errors = [];  
@@ -58,7 +58,7 @@ const updateMenufnx = async (req, res) => {
         const updatedMenu = await Menu.findByIdAndUpdate(  
             id,  
             { itemName, price },  
-            { new: true }  
+            { new: true }  // Return the updated document  
         );  
 
         // Check if the menu item was found and updated  
@@ -66,6 +66,7 @@ const updateMenufnx = async (req, res) => {
             return res.status(404).json({ message: "Menu item not found." });  
         }  
 
+        // Return success response with the updated menu item  
         return res.status(200).json({ message: "Successful", menu: updatedMenu });  
 
     } catch (error) {  

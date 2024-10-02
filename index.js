@@ -13,8 +13,9 @@ const orderRouter = require("./routes/orderRoute")
 const resturantRouter = require("./routes/resturantRoute");
 const deliveryRouter = require("./routes/deliveryRoute")
 const assignDeliveryRouter = require("./routes/assignDeliveryRoute");
-const validateRoute = require("./routes/tokenValidateRoute")
-
+const validateRoute = require("./routes/tokenValidateRoute");
+const getDelPsnRoute = require ("./routes/deliveryRoute")
+const delDelpsnRoute = require ("./routes/deliveryRoute")
 
 
 const app = express();  
@@ -46,8 +47,8 @@ app.use("/api",orderRouter)
 app.use("/api",resturantRouter)
 app.use("/api",deliveryRouter)
 app.use("/api",assignDeliveryRouter)
-
-
+app.use("/api",getDelPsnRoute)
+app.use("/api",delDelpsnRoute)
 
 app.use((req, res) => {  
     return res.status(404).json({ message: "Sorry, this endpoint doesn't exist." });  

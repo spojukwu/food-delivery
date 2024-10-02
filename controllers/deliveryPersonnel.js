@@ -48,4 +48,40 @@ const deliveryPersonnelfxn = async (req, res) => {
     }  
 }
 
-module.exports = deliveryPersonnelfxn
+const getDeliveryfxn = async (req, res) => {  
+    try {  
+        const getdelivery = await DeliveryPersonnel.find();  
+        
+        // Create a response object that includes the data and its length  
+        const response = {  
+            count: getdelivery.length,  // Length of the array  
+            deliveryPersonnel: getdelivery  // The actual array of delivery personnel  
+        };  
+
+        res.status(200).json(response);  
+    } catch (error) {  
+        res.status(500).json({ message: "Error retrieving delivery personnel", error });  
+    }  
+}
+
+const delDeliveryfxn = async (req, res) => {  
+    try {  
+        const { id } = req.params; // Extract the ID from the request parameters  
+
+        // Attempt to find and delete the delivery personnel by ID  
+        const deleteDelivery = await DeliveryPersonnel.findByIdAndDelete(id);  
+        
+        // Check if the delivery personnel was found and deleted  
+        if (!deleteDelivery) {  
+            return res.status(404).json({ message: "Delivery personnel not found." }); // 404 Not Found  
+        }  
+
+        // Return a success response if deletion was successful  
+        return res.status(200).json({ message: "Deleted successfully." }); // 200 OK  
+    } catch (error) {  
+        console.error(error); // Log the error for debugging  
+        return res.status(500).json({ message: "Internal server error." }); // 500 Internal Server Error  
+    }  
+}
+module.exports = { deliveryPersonnelfxn, getDeliveryfxn, delDeliveryfxn
+}
