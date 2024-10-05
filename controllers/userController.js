@@ -5,15 +5,15 @@ const sendUserEmail = require("../sendEmail");
 const jwt = require("jsonwebtoken")
 
 //register users
-const regfxn = async (req, res) => {  
-    const { username, email, password, role } = req.body;  
+const regfxn = async (req, res) => { 
+    const { firstName, lastName, username, email, password, role } = req.body;  
     try {  
         // Hash the password before saving  
         const hashedPassword = await bcrypt.hash(password, 10);  
-        const newUser = new Users({ username, email, password: hashedPassword, role });  
+        const newUser = new Users({firstName, lastName, username, email, password: hashedPassword, role });  
         await newUser.save(); 
         
-        await sendUserEmail(email)
+        await sendUserEmail(email,firstName, password)
 
         return res.status(201).json({ message: "Registration successful", user: newUser });  
     } catch (error) {  

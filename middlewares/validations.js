@@ -6,6 +6,12 @@ const validateRegistration = async (req, res, next) => {
 
     const errors = [];
 
+    if(!firstName){
+        errors.push("Please add your firstName")
+    }
+    if(!lastName){
+        errors.push("Please add your lastName")
+    }
     if(!username){
         errors.push("Please add your Username")
     }  
